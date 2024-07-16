@@ -7,3 +7,4 @@ class Config:
         f'{os.getenv('POSTGRES_PASSWORD')}@localhost:5432/'
         f'{os.getenv('POSTGRES_DB')}'
     )
+    SECRET_KEY = os.getenv('SECRET')

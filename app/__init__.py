@@ -10,11 +10,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-
-@app.route("/")
-def weather_view():
-    return "Скоро тут вы сможете посмотреть погоду в выбранном городе!"
-
+from . import views
 
 if __name__ == "__main__":
     app.run()

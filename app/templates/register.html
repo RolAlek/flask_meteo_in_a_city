@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Регистрация пользователя{% endblock title %}
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <h1>Введите данные пользователя</h1>
+      <div class="col-12 col-lg-7 my-5">
+        <div class="col-12 col-lg-5">
+          <form method="POST" novalidate>
+            {{ form.csrf_token }}
+            {{ form.email(class="form-control form-control-lg py-3 mb-3", placeholder=form.email.label.text) }} <br />
+            {{ form.password(class="form-control form-control-lg py-3 mb-3", placeholder=form.password.label.text) }} <br />
+            {{ form.submit(class="button px-5 py-3 btn") }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}
+
