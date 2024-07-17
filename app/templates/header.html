@@ -8,16 +8,24 @@
               Получить погоду
             </a>
           </li>
+          {% if current_user.is_anonymous %}
+            <li class="nav-item pe-5">
+              <a href="{{ url_for('register') }}" class="nav-link">
+                Зарегистрироваться
+              </a>
+            </li>
+            <li class="nav-item pe-5">
+              <a href="{{ url_for('login') }}" class="nav-link">
+                Войти
+              </a>
+            </li>
+          {% else %}
           <li class="nav-item pe-5">
-            <a href="{{ url_for('register') }}" class="nav-link">
-              Зарегистрироваться
+            <a href="{{ url_for('logout') }}" class="nav-link">
+              Выйти
             </a>
           </li>
-          <li class="nav-item pe-5">
-            <a href="{{ url_for('login') }}" class="nav-link">
-              Войти
-            </a>
-          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

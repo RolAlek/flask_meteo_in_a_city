@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Войти{% endblock title %}
+{% block content %}
+<main>
+  <section class="container my-5">
+    <div class="row">
+      <h1>Введите ваш логин и пароль</h1>
+        <div class="col-12 col-lg-7 my-5">
+          <div class="col-12 col-lg-5">
+            <form method="POST" novalidate>
+              {{ form.csrf_token }}
+              {{ form.email(class="form-control form-control-lg py-3 mb-3", placeholder=form.email.label.text) }} <br />
+              {% if form.email.errors %}
+                <p class="text-danger">
+                  {% for error in form.email.errors %}
+                    {{ error }}
+                  {% endfor %}
+                </p>
+              {% endif %}
+              {{ form.password(class="form-control form-control-lg py-3 mb-3", placeholder=form.password.label.text) }} <br />
+              {% if form.password.errors %}
+                <p class="text-danger">
+                  {% for error in form.password.errors %}
+                    {{ error }}
+                  {% endfor %}
+                </p>
+              {% endif %}
+              {{ form.submit(class="button px-5 py-3 btn") }}
+              <p class="py-3 mb-3">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+              </p>
+            </form>
+          </div>
+        </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

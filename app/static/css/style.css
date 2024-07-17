@@ -77,3 +77,20 @@ textarea {
         margin: 0 auto;
     }
 }
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #fff;
+    overflow: auto;
+    position: absolute;
+    z-index: 1000;
+}
+
+.autocomplete-suggestion {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+    background: #ddd;
+}

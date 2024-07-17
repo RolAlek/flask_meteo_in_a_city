@@ -4,7 +4,70 @@
 <main>
   <section class="container my-5">
     <div class="row">
-      <h1>Скоро тут вы сможете посмотреть погоду в выбранном городе!</h1>
+      <h1>Выберете город</h1>
+      <div class="col-12 col-lg-7 my-5">
+        <div class="col-12 col-lg-5">
+          <form method="POST">
+            {{ form.hidden_tag() }}<br>
+            {{ form.city(class="form-control form-control-lg py-3 mb-3", placeholder=form.city.label.text, id="city-input") }}<br />
+            {{ form.submit(class="button px-5 py-3 btn")}}
+            {% if form.city.errors %}
+              <p class="text-danger">
+                {% for error in form.city.errors %}
+                  {{ error }}
+                {% endfor %}
+              </p>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+      {% if weather %}
+      <div class="col-12 col-lg-7 my-5">
+        <h2>Погода в {{ weather['city'] }}</h2>
+        <p>Температура: {{ weather['hourly']['temperature_2m'][0]}}°C</p>        
+      </div>
+      {% endif %}
+      {% if history %}
+      
+        <h2>История поисков:</h2>
+        <ul>
+          {% for item in history %}
+          <li><a href="{{ url_for('get_weather', city=item.city) }}">{{ item.city }}</a> - {{ item.count }} times</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('city-input');
+            var suggestionsContainer = document.createElement('div');
+            suggestionsContainer.classList.add('autocomplete-suggestions');
+            input.parentNode.appendChild(suggestionsContainer);
+
+            input.addEventListener('input', function() {
+                var query = input.value;
+                if (query.length < 3) {
+                    suggestionsContainer.innerHTML = '';
+                    return;
+                }
+
+                fetch(`http://api.geonames.org/searchJSON?username=rol_aleks&maxRows=5&style=LONG&name_startsWith=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionsContainer.innerHTML = '';
+                        data.geonames.forEach(function(item) {
+                            var suggestion = document.createElement('div');
+                            suggestion.classList.add('autocomplete-suggestion');
+                            suggestion.textContent = item.name + ', ' + item.countryName;
+                            suggestion.addEventListener('click', function() {
+                                input.value = item.name;
+                                suggestionsContainer.innerHTML = '';
+                            });
+                            suggestionsContainer.appendChild(suggestion);
+                        });
+                    });
+            });
+        });
+      </script>
     </div>
   </section>
 </main>
