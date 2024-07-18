@@ -11,8 +11,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 
-
-from . import views
+from . import views, api_views
 
 if __name__ == "__main__":
     app.run()

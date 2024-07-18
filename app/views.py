@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
@@ -44,7 +45,7 @@ def get_weather():
             weather=weather_data,
             history=history,
         )
-    return render_template("index.html", form=form)
+    return render_template("index.html", form=form, geo=os.getenv('GEONAME'))
 
 
 @app.route("/register", methods=["GET", "POST"])

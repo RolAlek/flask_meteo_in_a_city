@@ -50,7 +50,7 @@
                     return;
                 }
 
-                fetch(`http://api.geonames.org/searchJSON?username=rol_aleks&maxRows=5&style=LONG&name_startsWith=${query}`)
+                fetch(`http://api.geonames.org/searchJSON?username={{ geo }}&maxRows=5&style=LONG&name_startsWith=${query}`)
                     .then(response => response.json())
                     .then(data => {
                         suggestionsContainer.innerHTML = '';
